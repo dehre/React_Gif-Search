@@ -13,9 +13,15 @@ export default class App extends Component {
     }
   } 
 
-  //catch the data from the api, to render images
+  //perform a default search when the app first renders, to not show it blank
   componentDidMount(){
-    axios.get("http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC")
+    this.performSearch("cats");
+  }
+
+  //Using the input field, perform a search for images
+  performSearch = (query)=>{
+    const link = `http://api.giphy.com/v1/gifs/search?q=${query}&limit=24&api_key=dc6zaTOxFJmzC`
+    axios.get(link)
       .then(response=>{
       this.setState({
         gifs: response.data.data
@@ -26,18 +32,13 @@ export default class App extends Component {
       })
   }
 
-  //Using the input field, perform a search for images
-  performSearch = ()=>{
-    
-  }
-
   render() { 
     return (
       <div>
         <div className="main-header">
           <div className="inner">
             <h1 className="main-title">GifSearch</h1>
-            <SearchForm />      
+            <SearchForm onSearch={this.performSearch}/>      
           </div>   
         </div>    
         <div className="main-content">
