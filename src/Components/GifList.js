@@ -1,5 +1,6 @@
 import React from 'react';
 import Gif from './Gif';
+import NoGifs from './NoGifs';
 
 const GifList = props => { 
 
@@ -12,7 +13,7 @@ const GifList = props => {
   // RENDER THE IMAGES
   return(
     <ul className="gif-list">
-      {gifs}
+      {result.length? gifs : <NoGifs/>}
     </ul> 
   );
 }

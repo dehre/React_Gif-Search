@@ -9,7 +9,8 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      gifs: []
+      gifs: [],
+      loading: true
     }
   } 
 
@@ -24,7 +25,8 @@ export default class App extends Component {
     axios.get(link)
       .then(response=>{
       this.setState({
-        gifs: response.data.data
+        gifs: response.data.data,
+        loading: false
       });
       })
       .catch(error=>{
@@ -38,11 +40,15 @@ export default class App extends Component {
         <div className="main-header">
           <div className="inner">
             <h1 className="main-title">GifSearch</h1>
-            <SearchForm onSearch={this.performSearch}/>      
+            <SearchForm onSearch={this.performSearch}/>     
           </div>   
         </div>    
         <div className="main-content">
-          <GifList data={this.state.gifs}/>
+          {
+            this.state.loading ?
+              <h1>Loading..</h1> :
+              <GifList data={this.state.gifs}/>
+          }
         </div>
       </div>
     );
