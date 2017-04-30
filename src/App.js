@@ -13,10 +13,10 @@ export default class App extends Component {
     }
   } 
 
+  //catch the data from the api, to render images
   componentDidMount(){
     axios.get("http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC")
       .then(response=>{
-      const images = response.data.data;
       this.setState({
         gifs: response.data.data
       });
@@ -24,6 +24,11 @@ export default class App extends Component {
       .catch(error=>{
         console.log("Error fetching and parsing data",error)
       })
+  }
+
+  //Using the input field, perform a search for images
+  performSearch = ()=>{
+    
   }
 
   render() { 
@@ -36,7 +41,7 @@ export default class App extends Component {
           </div>   
         </div>    
         <div className="main-content">
-          <GifList />
+          <GifList data={this.state.gifs}/>
         </div>
       </div>
     );
